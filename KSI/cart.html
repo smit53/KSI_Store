@@ -1,0 +1,251 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block title %} KSI {% endblock %} 
+
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+    
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Shopping Cart</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{% url 'ksi_store:index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                {%  for item in items %}
+
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <a href="">
+                                            <img src="{{ item.img.url }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <p>{{item.name}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 id="prod_price {{ item.id }}">{{ item.price }}</h5> 
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <input type="text" value="{{ item.qunatity }}" title="Quantity:"
+                                            class="input-text qty">
+                                            <button  onclick="updateuserorder('{{ item.id }}','add')" data-action="add" id='add' class="increase item-count update-cart"><i class="lnr lnr-chevron-up"></i></button>
+
+                                            <button  onclick="updateuserorder('{{ item.id }}','remove')" data-action="remove" id='remove' class="reduced item-count update-cart"><i class="lnr lnr-chevron-down"></i></button>
+                                    </div>
+                                </td>
+                                {% endfor %}
+
+                                <td>
+                                    <h5> Total </h5>
+                                </td>
+                            </tr>
+
+                              
+                    
+                                <td>
+                                    <h5 id="subtotal">Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5 id="tax">Tax(18%)</h5>
+                                </td>
+                                <td>
+                                    <h5 id="Total">Total</h5>
+                                </td>
+                            </tr>
+                            <tr class="shipping_area">
+                            
+                                <td>
+                                    <h5>Shipping</h5>
+                                </td>
+                                
+                            </tr>
+                            <tr class="out_button_area">
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="gray_btn" href="{% url 'ksi_store:index' %}">Continue Shopping</a>
+                                        <a class="primary-btn" href="{% url 'ksi_store:email' %}">Proceed to checkout</a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+{% endblock %}
+{% block scripts %}
+<script>
+window.setTimeout(function () {
+    location.href = "{% url 'ecommerce:cart' %}";
+}, 60000); // refresh/redirect after 5 seconds.
+
+// var updateBtns = document.getElementsByClassName('update-cart');
+
+// 	for (var i = 0; i < updateBtns.length; i++) {
+
+// 		updateBtns[i].addEventListener('click', function(){
+
+//             var item_id = this.dataset.item;
+// 		    var action = this.dataset.action;
+// 		    console.log('productId:', item_id, 'Action:', action);
+
+// 		    updateuserorder(item_id,action)
+//         })
+//     }
+
+function updateuserorder(item_id,action)
+{
+	{% if not request.user.is_authenticated %} 
+		window.location.replace("{% url 'ecommerce:login_1' %}");
+	{% else %}
+
+		// var updateBtns = document.getElementsByClassName('update-cart');
+
+		// for (var i = 0; i < updateBtns.length; i++) {
+
+		// 	updateBtns[i].addEventListener('click', function(){
+
+			// let button = $(element)
+			// let item_id = button.data("id")
+			// var action = this.dataset.action;
+			console.log('item:', item_id);
+            console.log('USER:', user)
+            console.log('action',action)
+			
+			$.ajax({
+				method: "POST",
+				headers: {'X-CSRFToken':csrftoken},
+				url: "{% url 'ecommerce:update_cart' %}",
+				data:{
+					'action':action,
+					'item_id': item_id
+				}, success: function(data){
+					alert("Your changes hass been done successfully ");
+				}, error: function(error){
+					alert("Error!,something went wrong");
+				}
+				
+				})
+			
+	{% endif %}
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+// var updateBtns = document.getElementsByClassName('update-cart');
+
+// for (i = 0; i < updateBtns.length; i++) {
+
+// updateBtns[i].addEventListener('click', function(){
+
+// 	var item_id = this.dataset.items;
+// 	var action = this.dataset.action;
+// 	console.log('item:', item_id, 'Action:', action);
+// 	updateuserorder(item_id,action)
+	
+// })
+// }
+//     function updateuserorder(item_id,action){
+	
+//     console.log("user is sending data");
+//     var url ="{% url 'ecommerce:update_cart' %}";
+//     fetch(url,
+//     {
+//         method:"POST",
+//         headers:{'Content-Type':'application/json', 'X-CSRFToken':csrftoken},
+//         body:JSON.stringify({'item_id':item_id,'action':action}),
+//     })
+//     .then(response=>{
+//         return response.json()
+//     })
+//     .then(data=>{
+//         console.log('data:', data);
+//     });
+// }
+// function getToken(name) {
+//     let cookieValue = null;
+//     if (document.cookie && document.cookie !== '') {
+//         const cookies = document.cookie.split(';');
+//         for (let i = 0; i < cookies.length; i++) {
+//             const cookie = cookies[i].trim();
+//             // Does this cookie string begin with the name we want?
+//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//                 break;
+//             }
+//         }
+//     }
+//     return cookieValue;
+// }
+// const csrftoken = getToken('csrftoken');
+</script>
+{% endblock %}
