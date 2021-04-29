@@ -1,0 +1,64 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block title %} KSI {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+{% include 'includes/corrasol.html'  %}
+
+<section class="banner-area">
+  <div class="container">
+    <div class="row fullscreen align-items-center justify-content-start">
+      <div class="col-lg-12">
+        <div class="active-banner-slider owl-carousel">
+          <!-- single-slide -->
+          {% for products in grocery %}
+          {% if products.id >= 45 and products.id <= 50 %}
+          <div class="row mt-5 ml-5 single-slide align-items-center d-flex">
+            <div class="col-lg-5 col-md-6">
+              <div class="banner-content">
+                <a href="{% url 'ksi_store:single_product' products.id %}">
+                <h1><a href="{% url 'ksi_store:single_product' products.id %}">{{ products.name }} </a><br></h1>
+                <p> ₹{{ products.price }}</p>
+                <div class="add-bag d-flex align-items-center">
+                  <a class="social-info">
+                    <button class="btn btn-primary update-cart" id="add_to_cart" data-product="{{ products.id }}" data-action="add">Add To Cart</button>
+                    <!-- <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart" ></button>dd to Cart</button> -->
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div  class=" float-right w-50 mr-5 card shadow-ms">
+                <img class="card-body" src="{{ products.img.url }}" alt="">
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  {% endblock content %} 
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}
+
+<script>
+  $(document).ready(function() {
+    // Javascript method's body can be found in assets/js/demos.js
+    demo.initDashboardPageCharts();
+
+  });
+</script>
+
+{% endblock javascripts %}
