@@ -1,0 +1,75 @@
+
+
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+        
+        <div class="logo">
+          <a 
+             href="{% url 'index' %}" class="simple-text logo-mini">
+            KSI
+          </a>
+          <a target="_blank" class="simple-text logo-normal">
+            Buy Anything
+          </a>
+        </div>
+
+        <ul class="nav">
+          
+        {% if request.user.is_authenticated %}
+        <li>
+          <i class="tim-icons icon-atom"></i>
+          <p>Amazon</p>
+          <form class="navbar-form navbar-left" role="search" action='https://www.amazon.in/s?'>
+            <div class="form-group">
+            <input type="text" class="form-control" name='k' placeholder="Search">
+            </div>
+            </form>
+        </li>
+        <li>
+            <i class="tim-icons icon-atom"></i>
+            <p>Flipkart</p>
+            <form  class="navbar-form navbar-left" role="search" action='https://www.flipkart.com/search?'>
+              <div class="form-group">
+              <input type="text" class="form-control" name='q' placeholder="Search">
+              </div>
+              </form>
+        </li>
+        <li>
+            <a href="{% url 'ksi_store:Exclusive' %}">
+            <i class="tim-icons icon-atom"></i>
+            <p>Exclusives</p>
+            </a>
+        </li>
+        
+        <li>
+          <a href="{% url 'logout' %}">
+            <i class="tim-icons icon-atom"></i>
+            <p>Logout</p>
+          </a>
+        </li>
+        
+          {% else %}
+          <li>
+            <a href="{% url 'ksi_store:login_1' %}">
+              <i class="tim-icons icon-atom"></i>
+              <p>Login</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'ksi_store:register' %}">
+              <i class="tim-icons icon-atom"></i>
+              <p>Register</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'ksi_store:contact' %}">
+            <i class="tim-icons icon-atom"></i>
+            <p>Contact Us</p>
+            </a>
+          </li>
+          {% endif %}
+                    
+        </ul>
+        
+      </div>
+    </div>

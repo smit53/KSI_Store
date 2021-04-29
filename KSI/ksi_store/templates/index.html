@@ -1,0 +1,81 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block title %} KSI {% endblock %} 
+
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+
+{% include 'includes/corrasol.html'  %}
+
+<div class="row mt-5 ml-2">
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="{% static 'images/photo_clothing.jpeg' %}">
+    <h2>Clothing</h2>
+    {% if request.user.is_authenticated %}
+    <p><a class="btn btn-secondary" href="{% url 'ksi_store:cloth' %}">View details »</a></p>
+    {% endif %}
+  </div><!-- /.col-lg-4 -->
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="{% static 'images/photo_electronics.jpeg' %}">
+    <h2>Electronics</h2>
+    {% if request.user.is_authenticated %}
+
+    <p><a class="btn btn-secondary"  href="{% url 'ksi_store:electronics' %}">View details »</a></p>
+    {% endif %}
+
+  </div><!-- /.col-lg-4 -->
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="{% static 'images/photo_grocery.jpeg' %}">
+    <h2>Grocery</h2>
+    {% if request.user.is_authenticated %}
+    <p><a class="btn btn-secondary" href="{% url 'ksi_store:grocery' %}">View details »</a></p>
+    {% endif %}
+  </div><!-- /.col-lg-4 -->
+</div>
+
+<div class="row mt-5 ml-2">
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="{% static 'images/photo_household.jpeg' %}">
+    <h2>Household</h2>
+    {% if request.user.is_authenticated %}
+    <p><a class="btn btn-secondary" href="{% url 'ksi_store:household' %}">View details »</a></p>
+    {% endif %}
+  </div><!-- /.col-lg-4 -->
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="{% static 'images/photo_sports.jpeg' %}">
+    <h2>Sports</h2>
+    {% if request.user.is_authenticated %}
+    <p><a class="btn btn-secondary" href="{% url 'ksi_store:sports' %}">View details »</a></p>
+    {% endif %}
+  </div><!-- /.col-lg-4 -->
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="{% static 'images/photo_vehicles.jpeg' %}">
+    <h2>Vehicles</h2>
+    {% if request.user.is_authenticated %}
+    <p><a class="btn btn-secondary" href="{% url 'ksi_store:vehical' %}">View details »</a></p>
+    {% endif %}
+
+  </div><!-- /.col-lg-4 -->
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+
+{% endblock javascripts %}
