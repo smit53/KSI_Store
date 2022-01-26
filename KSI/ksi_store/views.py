@@ -64,7 +64,7 @@ def updateItem(request):
     print('Action:', action)
     print('productId:',productId) 
 
-    customer = models.Customer.objects.filter(user=request.user).first()
+    customer = request.user.customer
     print('customer',customer)
 
     product = Products.objects.get(id=productId)
@@ -89,7 +89,7 @@ def updateItem(request):
 
 def cart(request):
     if request.user.is_authenticated:
-        customer = models.Customer.objects.filter(user=request.user).first()
+        customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         print('order',order)
 
@@ -157,7 +157,7 @@ def register_user(request):
 
             msg     = '<h4>Wait till the authorizations from the admin!</h4>'
             success = True
-            # send_mail('New user registration', username+'Plz Accept me' , 'KSI.3buckcoders@gmail.com', ['KSI.3buckcoders@gmail.com'])
+            send_mail('New user registration', username+'Plz Accept me' , 'KSI.3buckcoders@gmail.com', ['KSI.3buckcoders@gmail.com'])
 
             
             #return redirect("/login/")
