@@ -1,0 +1,62 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} KSI {% endblock %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+	<!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="s_Product_carousel">
+						<div class="single-prd-item card-body">
+							<img class="card-body"  src="{{ object_1.img.url }}" alt="">
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-5 offset-lg-1 banner-content">
+					<div class="s_product_text">
+						<h3>{{ object_1.name }}</h3>
+						<h2>Rs.{{ object_1.price }}</h2>
+						<ul class="list">
+							{% if pk <= 11 %}
+								<li><span>Category</span> : <a href="{% url 'ksi_store:Exclusive' %}">Exclusive </a></li>
+							{% elif pk >= 15 and pk <= 20 %}
+								<li><span>Category</span> : <a href="{% url 'ksi_store:electronics' %}">Electronics </a></li>
+							{% elif pk >= 21 and pk <= 26 %}
+								<li><span>Category</span> : <a href="{% url 'ksi_store:cloth' %}">Clothings </a> </li>
+							{% elif pk >= 27 and pk <= 32 %}
+								<li><span>Category</span> : <a href="{% url 'ksi_store:household' %}">Household </a></li>
+							{% elif pk >= 33 and pk <= 38 %}
+								<li><span>Category</span> : <a href="{% url 'ksi_store:sports' %}">Sports </a></li>
+							{% elif pk >= 39 and pk <= 44 %}
+								<li><span>Category</span> : <a href="{% url 'ksi_store:vehical' %}">Vehicles </a> </li>
+							{% elif pk >= 45 and pk <= 50 %}
+								<li><span>Category</span> : <a href="{% url 'ksi_store:grocery' %}">Groceries </a></li>
+							{% endif %}
+							<li><span>Availibility</span> : In Stock</li>
+						</ul>
+				
+						<div class="card_area d-flex align-items-center">
+							<a><button class="btn btn-primary" id="add_to_cart" data-action="add" onclick="updateuserorder('{{ object_1.id }}')">Add To Cart </button></a>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock content %}
+{% block javascripts %}
+
+
+{% endblock javascripts %}
