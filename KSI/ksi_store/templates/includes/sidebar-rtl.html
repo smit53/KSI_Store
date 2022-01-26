@@ -1,0 +1,29 @@
+
+
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+
+        <div class="logo">
+          <a target="_blank">
+            BD
+          </a>
+          <a target="_blank">
+            Django Dashboard
+          </a>
+        </div>
+
+        {% if user.is_authenticated %}
+        <ul class="nav">
+          
+          <li class="active-pro">
+            <a target="_blank" 
+               href="https://www.creative-tim.com/product/black-dashboard-django">
+              <i class="tim-icons icon-spaceship"></i>
+              <p>See product</p>
+            </a>
+          </li>
+        </ul>
+        {% endif %}
+        
+      </div>
+    </div>

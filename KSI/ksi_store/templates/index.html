@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block title %} KSI {% endblock %} 
+
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+
+{% include 'includes/corrasol.html'  %}
+
+<div class="row mt-5 ml-2">
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="https://source.unsplash.com/300x300/?shirts,t-shirts">
+    <h2>Clothing</h2>
+    {% if request.user.is_authenticated %}
+    <p><a class="btn btn-secondary" href="{% url 'ksi_store:cloth' %}">View details »</a></p>
+    {% endif %}
+  </div><!-- /.col-lg-4 -->
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="https://source.unsplash.com/300x300/?laptop,mobile">
+    <h2>Electronics</h2>
+    {% if request.user.is_authenticated %}
+
+    <p><a class="btn btn-secondary"  href="{% url 'ksi_store:electronics' %}">View details »</a></p>
+    {% endif %}
+
+  </div><!-- /.col-lg-4 -->
+  <div class="col-lg-4 text-center">
+    <img class="rounded-circle" src="https://source.unsplash.com/300x300/?fruits,vegetabeles">
+    <h2>Grocery</h2>
+    {% if request.user.is_authenticated %}
+    <p><a class="btn btn-secondary" href="{% url 'ksi_store:grocery' %}">View details »</a></p>
+    {% endif %}
+  </div><!-- /.col-lg-4 -->
+</div>
+
+<script type='text/javascript' src='https://prod-apnortheast-a.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 1000px; height: 827px;'><object class='tableauViz' width='1000' height='827' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-apnortheast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;smitme' /><param name='name' value='StockIBM&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='display_count' value='n' /><param name='origin' value='viz_share_link' /><param name='showAppBanner' value='false' /></object></div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+
+{% endblock javascripts %}
